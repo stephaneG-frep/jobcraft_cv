@@ -187,8 +187,9 @@ class LocalAiService {
         .toList();
     if (cleanValues.isEmpty) return fallback;
     if (cleanValues.length == 1) return cleanValues.first;
-    if (cleanValues.length == 2)
+    if (cleanValues.length == 2) {
       return '${cleanValues.first} et ${cleanValues.last}';
+    }
     return '${cleanValues.take(cleanValues.length - 1).join(', ')} et ${cleanValues.last}';
   }
 

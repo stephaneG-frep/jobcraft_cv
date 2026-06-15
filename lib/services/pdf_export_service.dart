@@ -52,13 +52,13 @@ class PdfExportService {
           pw.Align(
             alignment: pw.Alignment.centerRight,
             child: pw.Text(
-              profile.fullName,
+              _pdfText(profile.fullName),
               style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
             ),
           ),
           pw.SizedBox(height: 32),
           pw.Text(
-            letter,
+            _pdfText(letter),
             style: const pw.TextStyle(fontSize: 11, lineSpacing: 5),
           ),
         ],
@@ -96,12 +96,12 @@ class PdfExportService {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           pw.Text(
-            profile.fullName.isEmpty ? 'Votre nom' : profile.fullName,
+            _pdfText(profile.fullName.isEmpty ? 'Votre nom' : profile.fullName),
             style: nameStyle,
           ),
           pw.SizedBox(height: 6),
           pw.Text(
-            profile.targetJob,
+            _pdfText(profile.targetJob),
             style: pw.TextStyle(color: accent, fontSize: 14),
           ),
           pw.SizedBox(height: 8),
@@ -110,7 +110,7 @@ class PdfExportService {
               profile.email,
               profile.phone,
               profile.address,
-            ].where((item) => item.isNotEmpty).join(' • '),
+            ].where((item) => item.isNotEmpty).map(_pdfText).join(' - '),
             style: const pw.TextStyle(fontSize: 10),
           ),
         ],
@@ -128,7 +128,7 @@ class PdfExportService {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           pw.Text(
-            title,
+            _pdfText(title),
             style: pw.TextStyle(
               color: accent,
               fontSize: 14,
@@ -140,7 +140,7 @@ class PdfExportService {
             (item) => pw.Padding(
               padding: const pw.EdgeInsets.only(bottom: 4),
               child: pw.Text(
-                '• $item',
+                '- ${_pdfText(item)}',
                 style: const pw.TextStyle(fontSize: 10, lineSpacing: 3),
               ),
             ),
@@ -148,5 +148,20 @@ class PdfExportService {
         ],
       ),
     );
+  }
+
+  String _pdfText(String value) {
+    return value
+        .replaceAll('’', "'")
+        .replaceAll('‘', "'")
+        .replaceAll('“', '"')
+        .replaceAll('”', '"')
+        .replaceAll('•', '-')
+        .replaceAll('–', '-')
+        .replaceAll('—', '-')
+        .replaceAll('…', '...')
+        .replaceAll('œ', 'oe')
+        .replaceAll('Œ', 'OE')
+        .replaceAll('\u00A0', ' ');
   }
 }
