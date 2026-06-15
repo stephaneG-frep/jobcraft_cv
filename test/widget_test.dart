@@ -9,6 +9,7 @@ void main() {
     await tester.pumpWidget(const JobCraftApp());
 
     expect(find.text('JobCraft CV'), findsOneWidget);
+    expect(find.text('Mode d’emploi CV'), findsOneWidget);
     expect(find.text('Créer mon CV'), findsOneWidget);
     expect(find.text('Lettre de motivation'), findsOneWidget);
     expect(find.text('Messages de candidature'), findsOneWidget);

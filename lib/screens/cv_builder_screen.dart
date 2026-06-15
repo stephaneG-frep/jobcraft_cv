@@ -7,6 +7,7 @@ import '../services/pdf_export_service.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/cv_preview.dart';
 import '../widgets/form_section.dart';
+import 'cv_help_screen.dart';
 
 class CvBuilderScreen extends StatefulWidget {
   const CvBuilderScreen({super.key});
@@ -71,6 +72,35 @@ class _CvBuilderScreenState extends State<CvBuilderScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Besoin d’aide pour remplir le CV ?',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Un guide simple explique quoi écrire dans chaque partie, avec des exemples prêts à adapter.',
+                    ),
+                    const SizedBox(height: 12),
+                    OutlinedButton.icon(
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const CvHelpScreen()),
+                      ),
+                      icon: const Icon(Icons.school_outlined),
+                      label: const Text('Ouvrir le mode d’emploi'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             FormSection(
               title: 'Profil utilisateur',
               children: [

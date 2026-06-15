@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/app_action_card.dart';
 import 'applications_screen.dart';
 import 'cv_builder_screen.dart';
+import 'cv_help_screen.dart';
 import 'messages_screen.dart';
 import 'motivation_letter_screen.dart';
 
@@ -25,6 +26,15 @@ class HomeScreen extends StatelessWidget {
             Text(
               'Tous vos documents restent stockés localement sur votre appareil.',
               style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            FilledButton.tonalIcon(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CvHelpScreen()),
+              ),
+              icon: const Icon(Icons.school_outlined),
+              label: const Text('Mode d’emploi CV'),
             ),
             const SizedBox(height: 24),
             LayoutBuilder(

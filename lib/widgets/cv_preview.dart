@@ -14,8 +14,8 @@ class CvPreview extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     final accent = switch (template) {
       CvTemplate.classic => colors.primary,
-      CvTemplate.modern => Colors.blue.shade700,
-      CvTemplate.creative => Colors.teal.shade700,
+      CvTemplate.modern => colors.secondary,
+      CvTemplate.creative => colors.tertiary,
     };
 
     return Card(
@@ -28,7 +28,11 @@ class CvPreview extends StatelessWidget {
               decoration: BoxDecoration(
                 color: template == CvTemplate.classic
                     ? Colors.transparent
-                    : accent.withValues(alpha: 0.08),
+                    : accent.withValues(
+                        alpha: Theme.of(context).brightness == Brightness.dark
+                            ? 0.13
+                            : 0.08,
+                      ),
                 border: Border(
                   left: BorderSide(
                     color: accent,
