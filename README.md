@@ -6,6 +6,7 @@ Application Flutter locale pour créer des CV, lettres de motivation, emails de 
 
 - Création d’un profil utilisateur complet.
 - Mode d’emploi pédagogique pour aider les débutants à remplir leur CV.
+- Assistant IA local pour améliorer le résumé, noter le CV et suggérer des compétences.
 - Générateur de CV avec aperçu, 3 modèles et export PDF.
 - Générateur de lettre de motivation modifiable avec export PDF.
 - Générateur local de messages de candidature.

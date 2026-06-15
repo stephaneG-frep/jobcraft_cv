@@ -4,6 +4,7 @@ import '../models/document_models.dart';
 import '../models/user_profile.dart';
 import '../services/hive_storage_service.dart';
 import '../services/pdf_export_service.dart';
+import '../widgets/ai_assistant_card.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/cv_preview.dart';
 import '../widgets/form_section.dart';
@@ -100,6 +101,11 @@ class _CvBuilderScreenState extends State<CvBuilderScreen> {
                   ],
                 ),
               ),
+            ),
+            AiAssistantCard(
+              profile: profile,
+              onApplySummary: _applyAiSummary,
+              onAddSkills: _addAiSkills,
             ),
             FormSection(
               title: 'Profil utilisateur',
@@ -296,5 +302,28 @@ class _CvBuilderScreenState extends State<CvBuilderScreen> {
   Future<void> _exportPdf(UserProfile profile) async {
     await _storage.saveProfile(profile);
     await _pdfService.exportCv(profile: profile, template: _template);
+  }
+
+  void _applyAiSummary(String summary) {
+    setState(() => _summaryController.text = summary);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Résumé IA ajouté au profil.')),
+    );
+  }
+
+  void _addAiSkills(List<String> skills) {
+    final currentSkills = _lines(_skillsController.text);
+    final merged = [...currentSkills];
+    for (final skill in skills) {
+      final alreadyExists = merged.any(
+        (item) => item.toLowerCase() == skill.toLowerCase(),
+      );
+      if (!alreadyExists) merged.add(skill);
+    }
+
+    setState(() => _skillsController.text = merged.join('\n'));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Compétences IA ajoutées.')));
   }
 }
